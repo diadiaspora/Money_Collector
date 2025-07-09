@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import Account
 
 # from django.http import HttpResponse
 
@@ -25,4 +26,9 @@ def about(request):
   return render(request, 'about.html')
 
 def account_index(request):
+  accounts = Account.objects.all()
   return render(request, 'accounts/index.html', {'accounts': accounts})
+
+def account_detail(request, account_id):
+  account = Account.objects.get(id=account_id)
+  return render(request, 'accounts/detail.html', {'account': account})

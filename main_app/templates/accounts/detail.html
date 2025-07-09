@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/accounts/account-detail.css' %}" />
+{% endblock %}
+{% block content %}
+<section class="cat-container">
+    <div class="cat-img">
+        <img src="{% static 'images/pig.png' %}" alt="pig" style="width: 50px;" />
+    </div>
+    <div class="cat-details">
+        <h1>{{ account.bank }}</h1>
+        <h2>{{ account.type }}</h2>
+
+        <p> <strong> Country:</strong>  {{ account.country }} </p>
+     
+        <p> <strong> Currency: </strong> {{ account.currency }}</p>
+       
+       
+    </div>
+</section>
+{% endblock %}
