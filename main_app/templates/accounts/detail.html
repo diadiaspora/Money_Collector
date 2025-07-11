@@ -16,11 +16,60 @@
      
         <p> <strong> Currency: </strong> {{ account.currency }}</p>
        
-       
+        <div class="cat-actions">
+            
+                <a href="{% url 'account-update' account.id %}" class="btn warn">Edit</a>
+            
+           
+                <a href="{% url 'account-delete' account.id %}" class="btn danger">Delete</a>
+           
+            </div>
     </div>
-    <div class="accountt-actions">
-        <a href="{% url 'account-update' account.id %}" class="btn warn">Edit</a>
-        <a href="{% url 'account-delete' account.id %}" class="btn danger">Delete</a>
+   
+        <!-- Existing cat-container above -->
+        <div class="feedings-toy-container">
+            <section class="feedings">
+                <div class="subsection-title">
+                    <h2>Transactions</h2>
+                    <img src="{% static 'images/pig.png' %}" alt="A pig" />
+                    <img src="{% static 'images/pig.png' %}" alt="A pig" />
+                    <img src="{% static 'images/pig.png' %}" alt="A pig" />
+                </div>
+                <h3>Add a Transaction</h3>
+                <!-- Add just above the feedings table -->
+                <form   action="{% url 'add-transaction' account.id %}" method="post" class="subsection-content" autocomplete="off">
+                    {% csrf_token %}
+                    {{ transaction_form.as_p }}
+                    <button type="submit" class="btn submit">Add Transaction</button>
+                </form>
+                <h3> Past Transactions</h3>
+                {% if account.transaction_set.all.count %}
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Transaction Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transaction in account.transaction_set.all %}
+                        <tr>
+                            <td>{{transaction.date}}</td>
+                            <td>{{transaction.get_type_display}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <div class="subsection-content">
+                    <p>⚠️ {{account.bank}} has no transactions!</p>
+                </div>
+                {% endif %}
+            </section>
         </div>
+        
+      
+  
 </section>
 {% endblock %}

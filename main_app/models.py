@@ -9,9 +9,37 @@ class Account(models.Model):
     country = models.CharField(max_length=250)
     currency = models.CharField(max_length=100)
 
+# Add new Feeding model below Cat model
+
+ACTIONS = (
+    ('D', 'Deposit'),
+    ('W', 'Withdrawl'),
+    ('T', 'Transfer')
+)
+
+
+
+class Transaction(models.Model):
+    date = models.DateField()
+    type = models.CharField(
+       max_length=1,
+    choices=ACTIONS,
+    default=ACTIONS[0][0]
+    )    
+
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)
+
     def __str__(self):
-        return f"{self.bank} ({self.id})"
+        # Nice method for obtaining the friendly value of a Field.choice
+        return f"{self.get_type_display()} on {self.date}"
+    
+    
+    def __str__(self):
+        return f"{self.account.bank} ({self.id})"
 
     def get_absolute_url(self):
         # Use the 'reverse' function to dynamically find the URL for viewing this cat's details
         return reverse('account-detail', kwargs={'account_id': self.id})
+    
+        class Meta:
+        ordering = ['-date']  # This line makes the newest feedings appear first

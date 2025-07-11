@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Account
+from .forms import TransactionForm
 
 class AccountCreate(CreateView):
     model = Account
@@ -45,5 +46,21 @@ def account_index(request):
 
 def account_detail(request, account_id):
   account = Account.objects.get(id=account_id)
-  return render(request, 'accounts/detail.html', {'account': account})
 
+  transaction_form = TransactionForm()
+  return render(request, 'accounts/detail.html', {
+        # include the cat and feeding_form in the context
+        'account': account, 'transaction_form': transaction_form
+    })
+
+def add_transaction(request, account_id):
+    # create a ModelForm instance using the data in request.POST
+    form = TransactionForm(request.POST)
+    # validate the form
+    if form.is_valid():
+        # don't save the form to the db until it
+        # has the cat_id assigned
+        new_transaction = form.save(commit=False)
+        new_transaction.account_id = account_id
+        new_transaction.save()
+    return redirect('account-detail', account_id=account_id)
