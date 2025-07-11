@@ -14,4 +14,9 @@ urlpatterns = [
         views.add_transaction, 
         name='add-transaction'
     ),
+    path('crypto/create/', views.CryptoCreate.as_view(), name='crypto-create'),
+path('crypto/<int:pk>/', views.CryptoDetail.as_view(), name='crypto-detail'),
+path('crypto/', views.CryptoList.as_view(), name='crypto-index'),
+    path('crypto/<int:pk>/update/', views.CryptoUpdate.as_view(), name='crypto-update'),
+    path('crypto/<int:pk>/delete/', views.CryptoDelete.as_view(), name='crypto-delete'),
 ]

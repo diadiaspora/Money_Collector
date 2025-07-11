@@ -1,11 +1,16 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Account
+from django.views.generic import ListView, DetailView
+from .models import Account, Crypto
 from .forms import TransactionForm
 
 class AccountCreate(CreateView):
     model = Account
     fields = '__all__'
+
+class CryptoCreate(CreateView):
+      model = Crypto
+      fields = '__all__'
 
 class AccountUpdate(UpdateView):
     model = Account
@@ -15,6 +20,12 @@ class AccountUpdate(UpdateView):
 class AccountDelete(DeleteView):
     model = Account
     success_url = '/accounts/'
+
+class CryptoList(ListView):
+    model = Crypto
+
+class CryptoDetail(DetailView):
+    model = Crypto
 
 # from django.http import HttpResponse
 
@@ -64,3 +75,11 @@ def add_transaction(request, account_id):
         new_transaction.account_id = account_id
         new_transaction.save()
     return redirect('account-detail', account_id=account_id)
+
+class CryptoUpdate(UpdateView):
+    model = Crypto
+    fields = ['name', 'price_usd']
+
+class CryptoDelete(DeleteView):
+    model = Crypto
+    success_url = '/crypto/'

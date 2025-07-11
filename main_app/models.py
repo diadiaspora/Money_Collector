@@ -41,5 +41,16 @@ class Transaction(models.Model):
         # Use the 'reverse' function to dynamically find the URL for viewing this cat's details
         return reverse('account-detail', kwargs={'account_id': self.id})
     
-        class Meta:
-        ordering = ['-date']  # This line makes the newest feedings appear first
+    class Meta:
+        ordering = ['-date'] 
+
+    
+class Crypto(models.Model):
+    name = models.CharField(max_length=50)
+    price_usd = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('crypto-detail', kwargs={'pk': self.id})
