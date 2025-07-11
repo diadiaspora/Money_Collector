@@ -18,5 +18,9 @@
        
        
     </div>
+    <div class="accountt-actions">
+        <a href="{% url 'account-update' account.id %}" class="btn warn">Edit</a>
+        <a href="{% url 'account-delete' account.id %}" class="btn danger">Delete</a>
+        </div>
 </section>
 {% endblock %}

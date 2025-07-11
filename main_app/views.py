@@ -1,5 +1,19 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Account
+
+class AccountCreate(CreateView):
+    model = Account
+    fields = '__all__'
+
+class AccountUpdate(UpdateView):
+    model = Account
+    # Let's disallow the renaming of a cat by excluding the name field!
+    fields = ['bank', 'type', 'country', 'currency']
+
+class AccountDelete(DeleteView):
+    model = Account
+    success_url = '/accounts/'
 
 # from django.http import HttpResponse
 
@@ -32,3 +46,4 @@ def account_index(request):
 def account_detail(request, account_id):
   account = Account.objects.get(id=account_id)
   return render(request, 'accounts/detail.html', {'account': account})
+

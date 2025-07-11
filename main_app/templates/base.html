@@ -17,13 +17,14 @@
 <body>
     <header>
         <div class="header-logo-container">
-            <a href="/" class="header-img" >
+            <a href="{% url 'home' %}" class="header-img" >
                 <img src="{% static 'images/pig.png' %}" alt="The Money Collector Logo" class="header-img" />
             </a>
         </div>
         <nav>
             <ul>
                 <li><a href="/accounts">All Accounts</a></li>
+                <li><a href="{% url 'account-create' %}">Add an Account</a></li>
                 <li><a href="/about">About</a></li>
             </ul>
         </nav>
