@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Account, Crypto
@@ -6,7 +6,7 @@ from .forms import TransactionForm
 
 class AccountCreate(CreateView):
     model = Account
-    fields = '__all__'
+    fields =  ['bank', 'type', 'country', 'currency']
 
 class CryptoCreate(CreateView):
       model = Crypto
@@ -57,11 +57,12 @@ def account_index(request):
 
 def account_detail(request, account_id):
   account = Account.objects.get(id=account_id)
-
+  cryptos_account_doesnt_have = Crypto.objects.exclude(id__in = account.crypto.all().values_list('id'))
   transaction_form = TransactionForm()
   return render(request, 'accounts/detail.html', {
-        # include the cat and feeding_form in the context
-        'account': account, 'transaction_form': transaction_form
+        'account': account, 
+        'transaction_form': transaction_form,
+        'cryptos' : cryptos_account_doesnt_have
     })
 
 def add_transaction(request, account_id):
@@ -83,3 +84,13 @@ class CryptoUpdate(UpdateView):
 class CryptoDelete(DeleteView):
     model = Crypto
     success_url = '/crypto/'
+
+def associate_crypto(request, account_id, crypto_id):
+    Account.objects.get(id=account_id).cryptos.add(crypto_id)
+    return redirect('account-detail', account_id=account_id)
+
+def remove_crypto(request, account_id, crypto_id):
+    account = get_object_or_404(Account, id=account_id)
+    crypto = get_object_or_404(Crypto, id=crypto_id)
+    account.crypto.remove(crypto)
+    return redirect('account-detail', account_id=account.id)

@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/accounts/account-detail.css' %}" />
 {% endblock %}
+
 {% block content %}
 <section class="cat-container">
     <div class="cat-img">
@@ -11,65 +13,105 @@
     <div class="cat-details">
         <h1>{{ account.bank }}</h1>
         <h2>{{ account.type }}</h2>
-
-        <p> <strong> Country:</strong>  {{ account.country }} </p>
-     
-        <p> <strong> Currency: </strong> {{ account.currency }}</p>
-       
+        <p><strong>Country:</strong> {{ account.country }}</p>
+        <p><strong>Currency:</strong> {{ account.currency }}</p>
         <div class="cat-actions">
-            
-                <a href="{% url 'account-update' account.id %}" class="btn warn">Edit</a>
-            
-           
-                <a href="{% url 'account-delete' account.id %}" class="btn danger">Delete</a>
-           
-            </div>
-    </div>
-   
-        <!-- Existing cat-container above -->
-        <div class="feedings-toy-container">
-            <section class="feedings">
-                <div class="subsection-title">
-                    <h2>Transactions</h2>
-                    <img src="{% static 'images/pig.png' %}" alt="A pig" />
-                    <img src="{% static 'images/pig.png' %}" alt="A pig" />
-                    <img src="{% static 'images/pig.png' %}" alt="A pig" />
-                </div>
-                <h3>Add a Transaction</h3>
-                <!-- Add just above the feedings table -->
-                <form   action="{% url 'add-transaction' account.id %}" method="post" class="subsection-content" autocomplete="off">
-                    {% csrf_token %}
-                    {{ transaction_form.as_p }}
-                    <button type="submit" class="btn submit">Add Transaction</button>
-                </form>
-                <h3> Past Transactions</h3>
-                {% if account.transaction_set.all.count %}
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Transaction Type</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for transaction in account.transaction_set.all %}
-                        <tr>
-                            <td>{{transaction.date}}</td>
-                            <td>{{transaction.get_type_display}}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                {% else %}
-                <div class="subsection-content">
-                    <p>⚠️ {{account.bank}} has no transactions!</p>
-                </div>
-                {% endif %}
-            </section>
+            <a href="{% url 'account-update' account.id %}" class="btn warn">Edit</a>
+            <a href="{% url 'account-delete' account.id %}" class="btn danger">Delete</a>
         </div>
-        
-      
-  
+    </div>
+
+    <div class="feedings-toy-container">
+        <section class="feedings">
+            <div class="subsection-title">
+                <h2>Transactions</h2>
+                <img src="{% static 'images/pig.png' %}" alt="A pig" />
+                <img src="{% static 'images/pig.png' %}" alt="A pig" />
+                <img src="{% static 'images/pig.png' %}" alt="A pig" />
+            </div>
+            <h3>Add a Transaction</h3>
+            <form action="{% url 'add-transaction' account.id %}" method="post" class="subsection-content"
+                autocomplete="off">
+                {% csrf_token %}
+                {{ transaction_form.as_p }}
+                <button type="submit" class="btn submit">Add Transaction</button>
+            </form>
+
+            <h3>Past Transactions</h3>
+            {% if account.transaction_set.all.count %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Transaction Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in account.transaction_set.all %}
+                    <tr>
+                        <td>{{ transaction.date }}</td>
+                        <td>{{ transaction.get_type_display }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="subsection-content">
+                <p>⚠️ {{ account.bank }} has no transactions!</p>
+            </div>
+            {% endif %}
+        </section>
+
+        <section class="toys">
+            <div class="subsection-title">
+                <h2>Crypto</h2>
+                <img src="{% static 'images/pig.png' %}" alt="pig" style="width: 50px;" />
+                <img src="{% static 'images/pig.png' %}" alt="A pig" style="width: 50px;" />
+                <img src="{% static 'images/pig.png' %}" alt="A pig" style="width: 50px;" />
+            </div>
+
+            <h3>{{ account.bank }}'s Crypto</h3>
+            <div class="subsection-content">
+                {% if account.crypto.count %}
+                {% for crypto in account.crypto.all %}
+                <div class="toy-container">
+                    <a href="{% url 'crypto-detail' crypto.id %}">
+                        <p>{{ crypto.name }} {{ crypto.price_usd }}</p>
+                    </a>
+                    <form action="{% url 'remove-toy' cat.id toy.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Remove Crypto</button>
+                    </form>
+                      
+
+
+                </div>
+                {% endfor %}
+                {% else %}
+                <p class="no-toys">{{ account.bank }} doesn't have any crypto yet!</p>
+                {% endif %}
+            </div>
+
+            <h3>Available Crypto</h3>
+            <div class="subsection-content">
+                {% if cryptos.count %}
+                {% for crypto in cryptos %}
+                <div class="toy-container">
+                    <a href="{% url 'crypto-detail' crypto.id %}">
+                        <p>A {{ crypto.name }} {{ crypto.price_usd }}</p>
+                    </a>
+                    <form action="{% url 'associate-crypto' account.id crypto.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn submit">Buy Crypto</button>
+                    </form>
+                    
+                </div>
+                {% endfor %}
+                {% else %}
+                <p class="all-toys">{{ account.bank }} already has all the available 🥳</p>
+                {% endif %}
+            </div>
+        </section>
+    </div>
 </section>
 {% endblock %}
