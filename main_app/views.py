@@ -52,17 +52,41 @@ def about(request):
   return render(request, 'about.html')
 
 def account_index(request):
-  accounts = Account.objects.all()
-  return render(request, 'accounts/index.html', {'accounts': accounts})
+    accounts = Account.objects.all()
+
+    for account in accounts:
+        transactions = account.transaction_set.all()
+        balance = 0
+        for txn in transactions:
+            if txn.type == 'D':
+                balance += txn.amount
+            elif txn.type in ['W', 'T']:
+                balance -= txn.amount
+        # Add a custom attribute to the account instance
+        account.balance = balance
+
+    return render(request, 'accounts/index.html', {'accounts': accounts})
+
 
 def account_detail(request, account_id):
   account = Account.objects.get(id=account_id)
+  transactions = account.transaction_set.all()
+
+  balance = 0
+  for txn in transactions:
+            if txn.type == 'D':
+                balance += txn.amount
+            elif txn.type in ['W', 'T']:
+                balance -= txn.amount
+
   cryptos_account_doesnt_have = Crypto.objects.exclude(id__in = account.crypto.all().values_list('id'))
   transaction_form = TransactionForm()
+
   return render(request, 'accounts/detail.html', {
-        'account': account, 
+        'account': account,
         'transaction_form': transaction_form,
-        'cryptos' : cryptos_account_doesnt_have
+        'cryptos': cryptos_account_doesnt_have,
+        'balance': balance,
     })
 
 def add_transaction(request, account_id):

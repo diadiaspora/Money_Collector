@@ -26,6 +26,12 @@ class Account(models.Model):
 
     def __str__(self):
         return f"{self.account.bank} ({self.id})"
+    
+    def get_balance(self):
+        deposits = self.transaction_set.filter(type='D').aggregate(models.Sum('amount'))['amount__sum'] or 0
+        withdrawals = self.transaction_set.filter(type='W').aggregate(models.Sum('amount'))['amount__sum'] or 0
+        transfers = self.transaction_set.filter(type='T').aggregate(models.Sum('amount'))['amount__sum'] or 0  # Optional
+        return deposits - withdrawals - transfers  # Adjust logic if transfer isn't outflow
 
 
 # Add new Feeding model below Cat model
@@ -47,6 +53,7 @@ class Transaction(models.Model):
     )    
 
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=12, decimal_places=2) 
 
     def __str__(self):
         
@@ -61,3 +68,11 @@ class Transaction(models.Model):
     
 
 
+class Transfer(models.Model):
+    from_account = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='transfers_out')
+    to_account = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='transfers_in')
+    date = models.DateField()
+    amount = models.DecimalField(max_digits=12, decimal_places=2)
+
+    def __str__(self):
+        return f"Transfer ${self.amount} from {self.from_account} to {self.to_account} on {self.date}"
