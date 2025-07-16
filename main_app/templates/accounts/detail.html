@@ -78,7 +78,7 @@
                     <a href="{% url 'crypto-detail' crypto.id %}">
                         <p>{{ crypto.name }} {{ crypto.price_usd }}</p>
                     </a>
-                    <form action="{% url 'remove-toy' cat.id toy.id %}" method="post">
+                    <form action="{% url 'remove-crypto' account.id crypto.id %}" method="post">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-danger">Remove Crypto</button>
                     </form>

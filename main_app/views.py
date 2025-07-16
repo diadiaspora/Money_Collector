@@ -86,7 +86,7 @@ class CryptoDelete(DeleteView):
     success_url = '/crypto/'
 
 def associate_crypto(request, account_id, crypto_id):
-    Account.objects.get(id=account_id).cryptos.add(crypto_id)
+    Account.objects.get(id=account_id).crypto.add(crypto_id)
     return redirect('account-detail', account_id=account_id)
 
 def remove_crypto(request, account_id, crypto_id):
