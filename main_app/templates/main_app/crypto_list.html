@@ -5,22 +5,17 @@
 {% endblock %}
 {% block content %}
 
-<section class="page-header">
-    <h1>All Crypto</h1>
-    <img src="{% static 'images/pig.png' %}" alt="A pig" style="width: 50px;"/>
-    <img src="{% static 'images/pig.png' %}" alt="A pig" style="width: 50px;"/>
-    <img src="{% static 'images/pig.png' %}" alt="A pig" style="width: 50px;"/>
-    <img src="{% static 'images/pig.png' %}" alt="A pig" style="width: 50px;"/>
-</section>
 
-<section class="card-container">
+<section class="card-container" >
+    <h1 style="color: #ffffff; font-size: 32px;"> Current Cryptocurrency</h1>
     {% for crypto in crypto_list %}
-    <div class="card" style="background-color: black">
-        <div class="card-bg" style="background-color: black" ></div>
-        <a href="{% url 'crypto-detail' crypto.id %}">
-            <div class="card-content">
-                <h2>{{ crypto.name }}</h2>
-                <p> {{ crypto.price_usd }} </p>
+    <div class="card" style="background-color: black; ">
+
+        <a href="{% url 'crypto-detail' crypto.id %}" style="text-decoration: none;">
+            <div class="card-content" style="color: #ffffff; display: flex; align-items: center;" onmouseover="this.style.color='chartreuse'" 
+            onmouseout="this.style.color='white'">
+                <h2>{{ crypto.name }}:</h2>
+                <p style="font-size: 24px; margin-left: 24px;"> {{ crypto.price_usd }} </p>
             </div>
         </a>
     </div>

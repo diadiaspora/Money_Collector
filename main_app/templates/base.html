@@ -9,25 +9,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" type="image/png" href="{% static 'images/pig.png' %}" />
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <title>Cat Collector</title>
+    <title>Crypto Collector</title>
     {% block head %}
     {% endblock %}
 </head>
 
-<body>
+<body style="background-color: black;">
     <header>
-        <div class="header-logo-container">
-            <a href="{% url 'home' %}" class="header-img" >
-                <img src="{% static 'images/pig.png' %}" alt="The Money Collector Logo" class="header-img" style="width: 50px;"/>
+        <div class="header-logo-container"
+            style="background-color: black; height: 70px; border-color: chartreuse; display: flex; ">
+            <div>
+            <a href="{% url 'home' %}"  >
+                <img src="{% static 'images/pig.png' %}" alt="The Crypto Collector Logo" class="header-img"
+                    style="width: 50px;" />   
             </a>
+            </div>
+            <div><a href="{% url 'home' %}" style="text-decoration: none;" > <p style="color: #ffffff; font-size: 32px; margin-left: 12px; margin-top: 6px;"   onmouseover="this.style.color='chartreuse'" 
+                onmouseout="this.style.color='white'">Home </p></a></div>
+            <div>
+                
+            </div>
         </div>
-        <nav>
+        <nav style="background-color: black; height: 70px; border-color: chartreuse;">
             <ul>
-                <li><a href="/accounts">All Accounts</a></li>
-                <li><a href="{% url 'crypto-index' %}">All Crypto</a></li>
-                <li><a href="{% url 'account-create' %}">Add an Account</a></li>
-                <li><a href="{% url 'crypto-create' %}">Add Crypto</a></li>
-                <li><a href="/about">About</a></li>
+                <li><a href="/accounts" style="color: white; text-decoration: none;"   onmouseover="this.style.color='chartreuse'" 
+                    onmouseout="this.style.color='white'">All Accounts</a></li>
+                <li><a href="{% url 'crypto-index' %}" style="color: white; text-decoration: none;"   onmouseover="this.style.color='chartreuse'" 
+                    onmouseout="this.style.color='white'">All Crypto</a></li>
+                <li><a href="{% url 'account-create' %}" style="color: white; text-decoration: none;"   onmouseover="this.style.color='chartreuse'" 
+                    onmouseout="this.style.color='white'">Add an Account</a>
+                </li>
+                <li><a href="{% url 'crypto-create' %}" style="color: white; text-decoration: none;"   onmouseover="this.style.color='chartreuse'" 
+                    onmouseout="this.style.color='white'">Add Crypto</a></li>
+                <li><a href="/about" style="color: white; text-decoration: none;"   onmouseover="this.style.color='chartreuse'" 
+                    onmouseout="this.style.color='white'">About</a></li>
             </ul>
         </nav>
     </header>

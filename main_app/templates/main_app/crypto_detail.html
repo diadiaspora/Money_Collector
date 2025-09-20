@@ -5,11 +5,11 @@
 {% endblock %}
 {% block content %}
 
-<div class="card" style="border-color: black">
+<div class="card" style="border-color: black; margin-top: 180px;">
     <div class="card-bg" style="background-color: black"></div>
-    <div class="card-content">
+    <div class="card-content" style="color: #ffffff">
         <h2>{{ crypto.name }}</h2>
-        <p>A {{ crypto.price_usd }} crypto</p>
+        <p style="font-size: 24px;"> Price: {{ crypto.price_usd }} crypto</p>
     </div>
 </div>
 <a href="{% url 'crypto-update' crypto.id %}" class="btn warn">Edit</a>

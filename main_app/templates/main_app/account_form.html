@@ -7,16 +7,16 @@
 
 <div class="page-header">
     {% if account %}
-    <h1>Edit {{ account.bank }}</h1>
+    <h1 style="color: #ffffff;">Edit {{ account.bank }}</h1>
     {% else %}
-    <h1>Add an Account</h1>
-    <img src="{% static 'images/pig.png' %}" alt="money pig" style="width: 50px;"/>
+    <h1 style="color: #ffffff;">Add an Account</h1>
+    <!-- <img src="{% static 'images/pig.png' %}" alt="money pig" style="width: 50px;"/> -->
     {% endif %}
 </div>
 
 <form action="" method="post" class="form-container">
     {% csrf_token %}
-    <table>
+    <table style="color: #ffffff; font-size: 24px;">
         {{ form.as_table }}
     </table>
     <button type="submit" class="btn submit">Submit!</button>

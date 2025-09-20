@@ -6,29 +6,27 @@
 {% endblock %}
 
 {% block content %}
-<section class="cat-container">
+<section class="cat-container" style="margin-top: 100px;">
     <div class="cat-img">
-        <img src="{% static 'images/pig.png' %}" alt="pig" style="width: 50px;" />
+        <!-- <img src="{% static 'images/pig.png' %}" alt="pig" style="width: 50px;" /> -->
     </div>
     <div class="cat-details">
-        <h1>{{ account.bank }}</h1>
-        <h2>{{ account.type }}</h2>
-        <h3>Balance: ${{ balance }}</h3>
-        <p><strong>Country:</strong> {{ account.country }}</p>
-        <p><strong>Currency:</strong> {{ account.currency }}</p>
+        <h1 style="color: #ffffff;">{{ account.bank }}</h1>
+        <h2 style="color: #ffffff;">{{ account.type }}</h2>
+        <h3 style="color: #ffffff;">Balance: ${{ balance }}</h3>
+        <p style="color: #ffffff;"><strong>Country:</strong> {{ account.country }}</p>
+        <p style="color: #ffffff;"><strong>Currency:</strong> {{ account.currency }}</p>
         <div class="cat-actions">
-            <a href="{% url 'account-update' account.id %}" class="btn warn">Edit</a>
+            <a href="{% url 'account-update' account.id %}" class="btn warn" style="background-color: chartreuse; color:black; border-color: chartreuse;">Edit</a>
             <a href="{% url 'account-delete' account.id %}" class="btn danger">Delete</a>
         </div>
     </div>
 
     <div class="feedings-toy-container">
-        <section class="feedings">
+        <section class="feedings" style="background-color: #ffffff; border-radius: 18px; border-color: chartreuse; margin-right: 42px;">
             <div class="subsection-title">
                 <h2>Transactions</h2>
-                <img src="{% static 'images/pig.png' %}" alt="A pig" />
-                <img src="{% static 'images/pig.png' %}" alt="A pig" />
-                <img src="{% static 'images/pig.png' %}" alt="A pig" />
+    
             </div>
 
             <h3>Add a Transaction</h3>
@@ -50,13 +48,13 @@
                 <button type="submit" class="btn submit">Add Transaction</button>
             </form>
 
-            <h3>Past Transactions</h3>
+            <h3 >Past Transactions</h3>
             {% if account.transaction_set.all %}
             <table>
-                <thead>
+                <thead style="  border-bottom: 3px solid #000000;">
                     <tr>
                         <th>Date</th>
-                        <th>Transaction Type</th>
+                        <th> Transaction Type </th>
                         <th>Amount</th>
                     </tr>
                 </thead>
@@ -75,12 +73,9 @@
             {% endif %}
         </section>
 
-        <section class="toys">
+        <section class="toys" style="background-color: #ffffff; border-radius: 18px; border-color: chartreuse;">
             <div class="subsection-title">
                 <h2>Crypto</h2>
-                <img src="{% static 'images/pig.png' %}" alt="pig" style="width: 50px;" />
-                <img src="{% static 'images/pig.png' %}" alt="A pig" style="width: 50px;" />
-                <img src="{% static 'images/pig.png' %}" alt="A pig" style="width: 50px;" />
             </div>
 
             <h3>{{ account.bank }}'s Crypto</h3>

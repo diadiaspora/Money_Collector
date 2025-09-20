@@ -2,29 +2,21 @@
 <link rel="stylesheet" href="{% static 'css/accounts/account-index.css' %}" />
 {% endblock %} {% block content %}
 
-<section class="page-header">
+<section class="page-header" style="display: flex; justify-content: center; color: white; margin-top: 180px;">
     <h1>Accounts</h1>
-    <img src="{% static 'images/pig.png' %}" alt="A cool pig" />
-    <img src="{% static 'images/pig.png' %}" alt="A happy pig" />
-    <img src="{% static 'images/pig.png' %}" alt="A pig in a teacup" />
-    <img src="{% static 'images/pig.png' %}" alt="A pig in a box" />
-</section>
+    </section>
 
 <section class="card-container">
     {% for account in accounts %}
-    <div class="card">
+    <div class="card" style="border-color: chartreuse; border-radius: 20px; margin: 20px;  ">
         <a href="/accounts/{{account.id}}">
-           <div class="card-content">
-            <div class="card-img-container">
+           <div class="card-content" style="background-color: #ffffff; border-radius: 18px; width: 93%; ">
+            <div class="card-img-container" >
                 <img src="{% static 'images/pig.png' %}" alt="pig" style="width: 50px;" />
             </div>
             <h2 class="card-title">{{ account.bank }}</h2>
-            <!-- {% if cat.age > 0 %} -->
-            <!-- <p>{{ account.type }} </p> -->
-            <!-- {% else %} -->
             <p> {{ account.type }} </p>
             <p> {{ account.country }} </p>
-            <!-- {% endif %} -->
             <p><small>{{ account.currency }}</small></p>
             <p><strong>Balance:</strong> ${{ account.balance }}</p>
         </div>

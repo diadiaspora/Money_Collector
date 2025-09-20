@@ -40,3 +40,19 @@
   .card-img-container {
     width: 50px;
   }
+
+  section.page-header {
+    width: 100%;
+    display: flex;               /* center the H1 as a flex child */
+    justify-content: center;     /* horizontal center */
+    align-items: center;         /* vertical center inside the section */
+    padding: 100px 20px;         /* replaces margin-top on the H1 */
+    box-sizing: border-box;
+  }
+
+
+section.page-header h1 {
+  margin: 0;
+  color: #ffffff;
+  text-align: center;         /* fallback if you prefer text-align */
+}
