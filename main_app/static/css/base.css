@@ -22,9 +22,9 @@ body {
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   min-height: 100vh;
-  --nav-bg: rgba(104, 197, 248, 0.7);
-  --nav-bg-ff: rgba(104, 197, 248, 0.9);
-  --borders: rgb(36, 116, 248) solid 2px;
+  --nav-bg: rgb(0, 0, 0);
+  --nav-bg-ff: rgb(0, 0, 0);
+  --borders: rgb(0, 0, 0) solid 0px;
   --text-color: rgb(17, 20, 17);
   --link-hover-color: rgb(16, 56, 158);
   --button-bg: rgb(245, 245, 245);
@@ -176,7 +176,17 @@ nav li {
 }
 
 
+
+
 @media only screen and (min-width: 768px) {
+  .big-nav {
+    display: block;
+  }
+
+  .mobile-nav {
+    display: none;
+  }
+
   header {
     position: sticky;
     display: flex;
@@ -237,6 +247,15 @@ nav li {
 }
 
 @media only screen and (min-width: 1024px) {
+
+    .big-nav {
+    display: block;
+  }
+
+  .mobile-nav {
+    display: none;
+  }
+
   main {
     min-height: calc(100vh - 55px);
   }
@@ -281,4 +300,47 @@ nav li {
       backdrop-filter: blur(3px);
     }
   }
+}
+
+@media only screen and (max-width: 767px) {
+    .big-nav {
+    display: none;
+  }
+
+  .mobile-nav-right {
+  display: flex;
+  justify-content: flex-end; /* pushes content to the right */
+  align-items: center; /* vertically centers icons */
+  padding: 10px;
+  width: 100%;
+  }
+
+  .mobile-nav {
+    display: block;
+  }
+
+    .mobile-nav ul {
+    display: flex;
+    justify-content: space-around; /* or space-evenly / center */
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+    nav,
+  .header-logo-container {
+    margin: 10px 0;
+    padding: 0px;
+  }
+
+  nav ul {
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  flex-wrap: wrap;
+}
+
+
 }

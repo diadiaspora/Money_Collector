@@ -43,16 +43,26 @@
 
   section.page-header {
     width: 100%;
-    display: flex;               /* center the H1 as a flex child */
-    justify-content: center;     /* horizontal center */
-    align-items: center;         /* vertical center inside the section */
-    padding: 100px 20px;         /* replaces margin-top on the H1 */
+    display: flex;               
+    justify-content: center;    
+    align-items: center;        
+    padding: 10px 20px;         
     box-sizing: border-box;
+   margin-top: 10px;
   }
 
 
 section.page-header h1 {
   margin: 0;
   color: #ffffff;
-  text-align: center;         /* fallback if you prefer text-align */
+  text-align: center;        
+}
+
+@media only screen and (max-width: 767px) { 
+
+  section.page-header {
+
+   margin-top: 0px;
+   padding: 0px;
+  }
 }

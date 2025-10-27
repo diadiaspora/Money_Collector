@@ -20,11 +20,31 @@ main > section {
 }
 
 .logo-container {
-  max-width: 375px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* centers vertically */
+  align-items: center;      /* centers horizontally */
+  text-align: center;
+  min-height: 100dvh;       /* dynamic viewport height fixes mobile Safari issue */
+  padding: 0 1rem;          /* slight horizontal padding */
+  box-sizing: border-box;
 }
 
 .cat-container {
   width: 80%;
+}
+
+.img-width {
+  width: 350px;
+  font-size: 42px;
+}
+
+.header-text {
+  font-size: 42px;
+}
+
+.body-text {
+  font-size: 24px;
 }
 
 .login {
@@ -82,5 +102,30 @@ main > section {
 
   .logo-container {
     max-width: 520px;
+    background-color: black;
   }
 }
+
+@media only screen and (max-width: 767px) {
+
+.img-width {
+  width: 150px;
+
+}
+
+.header-text {
+    font-size: 24px;
+}
+
+.body-text {
+  font-size: 16px;
+}
+
+  .logo-container {
+    justify-content: flex-start; /* align from the top instead of exact center */
+    padding-top: 3vh;           /* push it down slightly into view */
+    min-height: auto;            /* remove height lock so it can fit better */
+  }
+
+}
+
